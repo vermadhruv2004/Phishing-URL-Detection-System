@@ -1,7 +1,11 @@
 import re
 import ipaddress
 import socket
-import whois
+try:
+    import whois
+except ImportError:
+    whois = None
+
 from datetime import date
 from urllib.parse import urlparse
 
