@@ -66,8 +66,13 @@ if not os.path.exists(MODEL_PATH):
     st.error("Model file not found. Please ensure pickle/model.pkl exists.")
     st.stop()
 
-with open(MODEL_PATH, "rb") as file:
-    model = pickle.load(file)
+try:
+    with open(MODEL_PATH, "rb") as file:
+        model = pickle.load(file)
+except Exception as e:
+    st.error("Model loading failed. Please check dependencies.")
+    st.stop()
+
 
 # ------------------ UI ------------------
 st.markdown("<h1 style='text-align:center;'>🛡️ Phishing URL Detection</h1>", unsafe_allow_html=True)
