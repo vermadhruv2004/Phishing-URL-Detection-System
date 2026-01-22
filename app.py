@@ -1,10 +1,13 @@
-import streamlit as st
-import pickle
-import os
 from urllib.parse import urlparse
 from difflib import SequenceMatcher
-
 from feature import FeatureExtraction
+
+import streamlit as st
+import joblib
+import os
+
+
+
 
 # ------------------ Page Config ------------------
 st.set_page_config(page_title="Phishing URL Detection", page_icon="🛡️", layout="centered")
@@ -60,17 +63,16 @@ def is_suspicious_subdomain(subdomain, domain):
 
 
 # ------------------ Load Model ------------------
-MODEL_PATH = os.path.join("pickle", "model.pkl")
+MODEL_PATH = "model.joblib"
 
 if not os.path.exists(MODEL_PATH):
-    st.error("Model file not found. Please ensure pickle/model.pkl exists.")
+    st.error("Model file not found. Please upload model.joblib.")
     st.stop()
 
 try:
-    with open(MODEL_PATH, "rb") as file:
-        model = pickle.load(file)
+    model = joblib.load(MODEL_PATH)
 except Exception as e:
-    st.error("Model loading failed. Please check dependencies.")
+    st.error("Model loading failed. Incompatible model or environment.")
     st.stop()
 
 
