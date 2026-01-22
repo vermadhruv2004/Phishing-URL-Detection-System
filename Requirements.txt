@@ -3,3 +3,4 @@ pandas
 numpy
 scikit-learn==1.2.2
 python-whois==0.8.0
+joblib
